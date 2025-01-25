@@ -21,19 +21,17 @@ class Window:
         self.display = self.window.set_mode(self.size)
 
 
-    def updateScreen(self) -> None:
+    def updateScreen(self, mouse_clicked, mouse_pos) -> None:
         """Updates back buffer and flips front and back buffers"""
 
-        # Update back buffer with what's going on 
-        # Fill buffer with black to clear last frame 
-        self.display.fill((0,0,0))
+        # Change state if clicked on start button
+        if (mouse_clicked[0] and self.state == 0):
+            self.state = 1
+            self.entities.clear()
 
         # Cycle through entities and add them to the screen 
-        
         for entity in self.entities.values():
             entity.render(self.display)
-        
-        
 
         # Flip front and back buffers 
         self.window.flip()
@@ -58,12 +56,20 @@ class Window:
 
         self.entities[name] = entity
 
-    def removeEntity(self):
-        pass
+
+    def removeEntity(self, name: str):
+        self.entities.pop(name)
+
 
     def displayStartMenu(self):
+        # Fill buffer with black to clear last frame 
+        self.display.fill((0,0,0))
         self.addEntity("c1", "circle", {"radius": 10, "pos": [100,100], "color": (255,0,0)})
         self.addEntity("c2", "circle", {"radius": 10, "pos": [120,100], "color": (255,0,255)})
         self.addEntity("c3", "circle", {"radius": 10, "pos": [140,100], "color": (0,0,255)})
         self.addEntity("c4", "circle", {"radius": 10, "pos": [160,100], "color": (5,255,0)})
         self.addEntity("r1", "rect", {"size": [100,10], "pos": [100,130], "color": (0,255,0)})
+
+    
+    def displayGame(self):
+        self.display.fill((255,255,255))
