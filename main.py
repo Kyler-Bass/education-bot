@@ -8,7 +8,7 @@ API_KEY = os.getenv("API_KEY")
 
 def main():
     SCREEN_SIZE = (600,800)
-    FONT_SIZE = 30
+    FONT_SIZE = 40
     window = Window(SCREEN_SIZE, FONT_SIZE)
     
     
@@ -22,7 +22,8 @@ def main():
         # Run a specific function based on the current state of the window 
         funcToRun = {
             0: window.displayStartMenu,
-            1: window.displayGame
+            1: window.chooseMode,
+            2: window.displayGame
         }
         funcToRun[window.state]()
 

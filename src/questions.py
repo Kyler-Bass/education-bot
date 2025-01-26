@@ -11,6 +11,7 @@ from openai import OpenAI
 client = OpenAI(api_key = os.getenv("API_KEY"))
 
 
+
 def generateq(subject, challenge):
     '''
     Generates question about the given subject based on difficulty level.
@@ -26,6 +27,7 @@ def generateq(subject, challenge):
               f'Return the question and answer in a JSON format. With the key for question being "question" and the key for the answers being "answers". '
               f'Return the four answer choices in a python list format inside the JSON.'
               f'Return the correct answer in JSON format. Let the key be "correct" and return in list format inside the JSON.')
+
     try:
         response = client.chat.completions.create(
             model = 'gpt-4',
