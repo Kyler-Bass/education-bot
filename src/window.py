@@ -50,7 +50,7 @@ class Window:
         if (self.state == 2 and self.entities.get('A_button',None) != None):
             for button in self.answerButtons:
                 button_obj = self.entities.get(button)
-                button_rect = pygame.Rect(button_obj.pos[0] - button_obj.radius, button_obj.pos[1] - button_obj.radius, button_obj.radius * 2, button_obj.radius * 2) # type: ignore
+                button_rect = pygame.Rect(button_obj.pos[0] - button_obj.radius, button_obj.pos[1] - button_obj.radius, button_obj.radius * 2 + 500, button_obj.radius * 2) # type: ignore
                 if (button_rect.collidepoint(mouse_pos)): # type: ignore
                     if (mouse_clicked[0]):
                         pass # TODO, DO something when buttons are pressed 
