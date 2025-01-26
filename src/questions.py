@@ -8,7 +8,10 @@ import random
 import openai
 import os
 from openai import OpenAI
-client = OpenAI(api_key = os.getenv("API_KEY"))
+client = openai.OpenAI(
+    base_url="https://api.groq.com/openai/v1",
+    api_key=os.environ.get("API_KEY")
+)
 
 
 
@@ -30,7 +33,7 @@ def generateq(subject, challenge):
 
     try:
         response = client.chat.completions.create(
-            model = 'gpt-4',
+            model = 'llama-3.3-70b-versatile',
             messages = [
                 {"role": "system", "content": "You are a helpful quiz question generator."},
                 {"role": "user", "content": prompt},
@@ -42,13 +45,19 @@ def generateq(subject, challenge):
         return f'error generating question {e}'
 
 
-'''def play_game():
-    lst = ['world history', 'math', 'physics', 'art', 'chemistry', 'biology', 'english']
-    sub = random.choice(lst)
+def playingGame(Window):
+    wrong = 0
+    sub = Window.mode()
     lvl = 1
-    loss = 0
-    while loss < 10:
-        x = generateq(sub, lvl)
-        qna = json.loads(x)
-        print(qna["question"])
-        if qna[]'''
+    x = generateq(sub, lvl)
+    x = x[7:-3]
+    qna = json.loads(x)
+    q = qna['question']
+    a = qna['answers']
+    c = qna['correct']
+    while wrong < 10:
+        Window.updateQA(q, a)
+        if c[0] == #button_clicked
+            lvl += 1
+        else:
+            wrong += 1
