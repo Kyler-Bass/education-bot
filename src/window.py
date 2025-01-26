@@ -1,5 +1,4 @@
 import pygame 
-from pygame import draw 
 from src.Entity import Entity, CircleEntity, RectEntity, ImageEntity, TextEntity
 
 class Window:
