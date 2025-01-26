@@ -45,19 +45,34 @@ def generateq(subject, challenge):
         return f'error generating question {e}'
 
 
-def playingGame(Window):
-    wrong = 0
-    sub = Window.mode()
-    lvl = 1
+def newQuestion(Window, lvl)  -> str:
+    '''
+    returns correct answer after generating and show question
+    '''
+    sub = Window.mode
     x = generateq(sub, lvl)
     x = x[7:-3]
     qna = json.loads(x)
     q = qna['question']
     a = qna['answers']
-    c = qna['correct']
-    while wrong < 10:
-        Window.updateQA(q, a)
-        if c[0] == '1':
+    Window.updateQA(q,a)
+    return qna["correct"]
+
+
+def playingGame(Window):
+    '''
+    keep track of wrong guesses and current right answer
+    '''
+    wrong = 0
+    lvl = 1
+    correct = ''
+    if Window.entities.get('question', None) == None:
+        correct = newQuestion(Window, lvl)
+    if Window.button_clicked != 'none':
+        if Window.button_clicked == correct:
             lvl += 1
         else:
             wrong += 1
+        correct = newQuestion(Window, lvl)
+
+

@@ -3,8 +3,9 @@ import pygame
 
 from src.window import Window
 from src.util_funcs import handleEvents
+from src.questions import playingGame
 
-API_KEY = os.getenv("API_KEY")
+#API_KEY = os.getenv("API_KEY")
 
 def main():
     SCREEN_SIZE = (600,800)
@@ -29,8 +30,12 @@ def main():
 
         # Update window, pass in mouse clicks and pos 
         window.updateScreen(pygame.mouse.get_pressed(), pygame.mouse.get_pos())
+        if (window.state == 2 and window.entities.get('question', None) != None):
+            playingGame(window)
+
 
 
 
 if __name__ == "__main__":
     main()
+
