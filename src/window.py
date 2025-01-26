@@ -21,7 +21,7 @@ class Window:
         self.answerButtons = ["A_button", "B_button", "C_button", "D_button"]
         self.running = True
         self.state : int = 0
-        self.entities: dict[str, ImageEntity | TextEntity | CircleEntity | RectEntity] = {}
+        self.entities: dict[str, Entity] = {}
 
         # Create window 
         self.window = pygame.display
@@ -47,12 +47,17 @@ class Window:
                     self.mode = button # type: ignore
                     return
                 
-        if (self.state == 2 and mouse_clicked[0] and self.entities.get('A_button',None) != None):
+        if (self.state == 2 and self.entities.get('A_button',None) != None):
             for button in self.answerButtons:
                 button_obj = self.entities.get(button)
                 button_rect = pygame.Rect(button_obj.pos[0] - button_obj.radius, button_obj.pos[1] - button_obj.radius, button_obj.radius * 2, button_obj.radius * 2) # type: ignore
                 if (button_rect.collidepoint(mouse_pos)): # type: ignore
-                    pass # TODO, DO something when buttons are pressed 
+                    if (mouse_clicked[0]):
+                        pass # TODO, DO something when buttons are pressed 
+                    else:
+                        button_obj.color = (207,207,207) # type: ignore
+                else:
+                    button_obj.color = (255,255,255) # type: ignore
 
 
         # Cycle through entities and add them to the screen 
@@ -138,6 +143,3 @@ class Window:
         self.addEntity("B_text", "text", {"pos": [100,523], "text": self.B_button_text, "fontStr": "Arial", "fontSize": 40})
         self.addEntity("C_text", "text", {"pos": [100,623], "text": self.C_button_text, "fontStr": "Arial", "fontSize": 40})
         self.addEntity("D_text", "text", {"pos": [100,723], "text": self.D_button_text, "fontStr": "Arial", "fontSize": 40})
-
-
-        
