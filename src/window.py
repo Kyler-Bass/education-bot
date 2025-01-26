@@ -139,7 +139,7 @@ class Window:
 
         
     def addAnswerChoiceText(self):
-        self.addEntity("A_text", "text", {"pos": [100,423], "text": self.A_button_text, "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("B_text", "text", {"pos": [100,523], "text": self.B_button_text, "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("C_text", "text", {"pos": [100,623], "text": self.C_button_text, "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("D_text", "text", {"pos": [100,723], "text": self.D_button_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("A_text", "text", {"pos": [100,423], "text": self.A_button_text, "fontStr": "Arial", "fontSize": 25})
+        self.addEntity("B_text", "text", {"pos": [100,523], "text": self.B_button_text, "fontStr": "Arial", "fontSize": 25})
+        self.addEntity("C_text", "text", {"pos": [100,623], "text": self.C_button_text, "fontStr": "Arial", "fontSize": 25})
+        self.addEntity("D_text", "text", {"pos": [100,723], "text": self.D_button_text, "fontStr": "Arial", "fontSize": 25})
