@@ -131,6 +131,10 @@ class Window:
         """Updates the displayed question and answers"""
 
         button_texts = ['A_text', 'B_text', 'C_text', 'D_text']
+
+        if (len(newQuestion) / 30 > 1):
+            newQuestion = newQuestion[:25] + "\n" + newQuestion[25:]
+
         self.entities['question'].reRenderText(newQuestion) # type: ignore
 
         # Just in case there is ever less than 4 answer choices given
