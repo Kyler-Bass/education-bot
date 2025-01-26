@@ -14,6 +14,11 @@ class Window:
         self.size = size
         self.background_color = (255,179,81)
         self.mode = "none"
+        self.A_button_text = "answer"
+        self.B_button_text = ""
+        self.C_button_text = ""
+        self.D_button_text = ""
+        self.question_text = "Question"
         self.running = True
         self.state : int = 0
         self.entities: dict[str, ImageEntity | TextEntity | CircleEntity | RectEntity] = {}
@@ -41,6 +46,13 @@ class Window:
                     self.entities.clear()
                     self.mode = button # type: ignore
                     return
+                
+        if (self.state == 2 and mouse_clicked[0] and self.entities.get('A_button',None) != None):
+            for button in ["A_button", "B_button", "C_button", "D_button"]:
+                button_obj = self.entities.get(button)
+                button_rect = pygame.Rect(button_obj.pos[0] - button_obj.radius, button_obj.pos[1] - button_obj.radius, button_obj.radius * 2, button_obj.radius * 2) # type: ignore
+                if (button_rect.collidepoint(mouse_pos)): # type: ignore
+                    pass # TODO, DO something when buttons are pressed 
 
 
         # Cycle through entities and add them to the screen 
@@ -73,10 +85,6 @@ class Window:
         self.entities[name] = entity
 
 
-    def removeEntity(self, name: str):
-        self.entities.pop(name)
-
-
     def displayStartMenu(self):
 
         # Fill buffer with black to clear last frame 
@@ -95,22 +103,24 @@ class Window:
 
     def displayGame(self):
         self.display.fill(self.background_color)
-        self.addEntity("A_button", "circle", {"radius": 20, "pos": [50,250], "color": (255,255,255)})
-        self.addEntity("B_button", "circle", {"radius": 20, "pos": [50,350], "color": (255,255,255)})
-        self.addEntity("C_button", "circle", {"radius": 20, "pos": [50,450], "color": (255,255,255)})
-        self.addEntity("D_button", "circle", {"radius": 20, "pos": [50,550], "color": (255,255,255)})
+        self.addEntity("A_button", "circle", {"radius": 20, "pos": [50,450], "color": (255,255,255)})
+        self.addEntity("B_button", "circle", {"radius": 20, "pos": [50,550], "color": (255,255,255)})
+        self.addEntity("C_button", "circle", {"radius": 20, "pos": [50,650], "color": (255,255,255)})
+        self.addEntity("D_button", "circle", {"radius": 20, "pos": [50,750], "color": (255,255,255)})
 
-        self.addEntity("A_button_border", "circle", {"radius": 20, "pos": [50,250], "color": (0,0,0), "width": 2})
-        self.addEntity("B_button_border", "circle", {"radius": 20, "pos": [50,350], "color": (0,0,0), "width": 2})
-        self.addEntity("C_button_border", "circle", {"radius": 20, "pos": [50,450], "color": (0,0,0), "width": 2})
-        self.addEntity("D_button_border", "circle", {"radius": 20, "pos": [50,550], "color": (0,0,0), "width": 2})
+        self.addEntity("A_button_border", "circle", {"radius": 20, "pos": [50,450], "color": (0,0,0), "width": 2})
+        self.addEntity("B_button_border", "circle", {"radius": 20, "pos": [50,550], "color": (0,0,0), "width": 2})
+        self.addEntity("C_button_border", "circle", {"radius": 20, "pos": [50,650], "color": (0,0,0), "width": 2})
+        self.addEntity("D_button_border", "circle", {"radius": 20, "pos": [50,750], "color": (0,0,0), "width": 2})
 
-        self.addEntity("A_button_label", "text", {"pos": [42,232], "text": "A", "fontStr": "Arial", "fontSize": 30})
-        self.addEntity("B_button_label", "text", {"pos": [42,332], "text": "B", "fontStr": "Arial", "fontSize": 30})
-        self.addEntity("C_button_label", "text", {"pos": [42,432], "text": "C", "fontStr": "Arial", "fontSize": 30})
-        self.addEntity("D_button_label", "text", {"pos": [42,532], "text": "D", "fontStr": "Arial", "fontSize": 30})
+        self.addEntity("A_button_label", "text", {"pos": [42,432], "text": "A", "fontStr": "Arial", "fontSize": 30})
+        self.addEntity("B_button_label", "text", {"pos": [42,532], "text": "B", "fontStr": "Arial", "fontSize": 30})
+        self.addEntity("C_button_label", "text", {"pos": [42,632], "text": "C", "fontStr": "Arial", "fontSize": 30})
+        self.addEntity("D_button_label", "text", {"pos": [42,732], "text": "D", "fontStr": "Arial", "fontSize": 30})
 
-        self.addEntity("A_text", "text", {"pos": [100,250], "text": "TEsting testing", "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("B_text", "text", {"pos": [100,350], "text": "TEsting testing", "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("C_text", "text", {"pos": [100,450], "text": "TEsting testing", "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("D_text", "text", {"pos": [100,550], "text": "TEsting testing", "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("A_text", "text", {"pos": [100,427], "text": self.A_button_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("B_text", "text", {"pos": [100,527], "text": self.B_button_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("C_text", "text", {"pos": [100,627], "text": self.C_button_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("D_text", "text", {"pos": [100,727], "text": self.D_button_text, "fontStr": "Arial", "fontSize": 40})
+
+        self.addEntity("question", "text", {"pos": [20,15], "text": self.question_text, "fontStr": "Arial", "fontSize": 40})
