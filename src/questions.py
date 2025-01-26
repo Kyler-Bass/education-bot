@@ -68,11 +68,13 @@ def playingGame(Window):
     correct = ''
     if Window.entities['question'].text == '':
         correct = newQuestion(Window, lvl)
+        Window.button_clicked = 'none'
     if Window.button_clicked != 'none':
         if Window.button_clicked == correct:
             lvl += 1
         else:
             wrong += 1
         correct = newQuestion(Window, lvl)
+        Window.button_clicked = 'none'
 
 
