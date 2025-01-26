@@ -18,6 +18,7 @@ class Window:
         self.C_button_text = ""
         self.D_button_text = ""
         self.question_text = ""
+        self.button_clicked = "none"
         self.answerButtons = ["A_button", "B_button", "C_button", "D_button"]
         self.running = True
         self.state : int = 0
@@ -50,10 +51,10 @@ class Window:
         if (self.state == 2 and self.entities.get('A_button',None) != None):
             for button in self.answerButtons:
                 button_obj = self.entities.get(button)
-                button_rect = pygame.Rect(button_obj.pos[0] - button_obj.radius, button_obj.pos[1] - button_obj.radius, button_obj.radius * 2, button_obj.radius * 2) # type: ignore
+                button_rect = pygame.Rect(button_obj.pos[0] - button_obj.radius, button_obj.pos[1] - button_obj.radius, button_obj.radius * 2 + 500, button_obj.radius * 2) # type: ignore
                 if (button_rect.collidepoint(mouse_pos)): # type: ignore
-                    if (mouse_clicked[0]):
-                        pass # TODO, DO something when buttons are pressed 
+                    if (mouse_clicked[0] and self.button_clicked == "none"):
+                        self.button_clicked = self.entities[button.split('_')[0] + "_text"].text # type: ignore
                     else:
                         button_obj.color = (207,207,207) # type: ignore
                 else:

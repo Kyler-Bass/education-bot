@@ -57,7 +57,7 @@ def playingGame(Window):
     c = qna['correct']
     while wrong < 10:
         Window.updateQA(q, a)
-        if c[0] == #button_clicked
+        if c[0] == '1':
             lvl += 1
         else:
             wrong += 1
