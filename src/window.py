@@ -124,16 +124,13 @@ class Window:
         self.addEntity("D_button_label", "text", {"pos": [42,732], "text": "D", "fontStr": "Arial", "fontSize": 30})
 
         self.addAnswerChoiceText()
-        self.addEntity("question", "text", {"pos": [20,15], "text": self.question_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("question", "text", {"pos": [20,15], "text": self.question_text, "fontStr": "Arial", "fontSize": 20})
     
 
     def updateQA(self, newQuestion: str, newAnswers: list[str]) -> None:
         """Updates the displayed question and answers"""
 
         button_texts = ['A_text', 'B_text', 'C_text', 'D_text']
-
-        if (len(newQuestion) / 30 > 1):
-            newQuestion = newQuestion[:25] + "\n" + newQuestion[25:]
 
         self.entities['question'].reRenderText(newQuestion) # type: ignore
 
