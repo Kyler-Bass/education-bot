@@ -25,7 +25,7 @@ def generateq(subject, challenge):
         level = 'intermediate'
     else:
         level = 'difficult'
-    prompt = (f'Generate a {level} problem about {subject}. '
+    prompt = (f'Generate a {level} problem about {subject} and dont repeat previous questions. '
               f'The question should be clear and concise. '
               f'Return the question and answer in a JSON format. With the key for question being "question" and the key for the answers being "answers". '
               f'Return the four answer choices in a python list format inside the JSON.'
