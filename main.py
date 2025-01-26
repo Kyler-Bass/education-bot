@@ -2,7 +2,7 @@ import os
 import pygame 
 
 from src.window import Window
-from src.util_funcs import programShouldExit
+from src.util_funcs import handleEvents
 
 API_KEY = os.getenv("API_KEY")
 
@@ -14,7 +14,7 @@ def main():
     
     
     while window.running:
-        if (programShouldExit()):
+        if (handleEvents()):
             pygame.quit()
             break
         

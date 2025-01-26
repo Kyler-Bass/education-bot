@@ -1,4 +1,3 @@
-from tkinter import Image
 import pygame 
 from pygame import draw 
 from src.Entity import Entity, CircleEntity, RectEntity, ImageEntity, TextEntity
@@ -14,11 +13,12 @@ class Window:
         self.size = size
         self.background_color = (255,179,81)
         self.mode = "none"
-        self.A_button_text = "answer"
+        self.A_button_text = ""
         self.B_button_text = ""
         self.C_button_text = ""
         self.D_button_text = ""
-        self.question_text = "Question"
+        self.question_text = ""
+        self.answerButtons = ["A_button", "B_button", "C_button", "D_button"]
         self.running = True
         self.state : int = 0
         self.entities: dict[str, ImageEntity | TextEntity | CircleEntity | RectEntity] = {}
@@ -48,7 +48,7 @@ class Window:
                     return
                 
         if (self.state == 2 and mouse_clicked[0] and self.entities.get('A_button',None) != None):
-            for button in ["A_button", "B_button", "C_button", "D_button"]:
+            for button in self.answerButtons:
                 button_obj = self.entities.get(button)
                 button_rect = pygame.Rect(button_obj.pos[0] - button_obj.radius, button_obj.pos[1] - button_obj.radius, button_obj.radius * 2, button_obj.radius * 2) # type: ignore
                 if (button_rect.collidepoint(mouse_pos)): # type: ignore
@@ -118,9 +118,26 @@ class Window:
         self.addEntity("C_button_label", "text", {"pos": [42,632], "text": "C", "fontStr": "Arial", "fontSize": 30})
         self.addEntity("D_button_label", "text", {"pos": [42,732], "text": "D", "fontStr": "Arial", "fontSize": 30})
 
-        self.addEntity("A_text", "text", {"pos": [100,427], "text": self.A_button_text, "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("B_text", "text", {"pos": [100,527], "text": self.B_button_text, "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("C_text", "text", {"pos": [100,627], "text": self.C_button_text, "fontStr": "Arial", "fontSize": 40})
-        self.addEntity("D_text", "text", {"pos": [100,727], "text": self.D_button_text, "fontStr": "Arial", "fontSize": 40})
-
+        self.addAnswerChoiceText()
         self.addEntity("question", "text", {"pos": [20,15], "text": self.question_text, "fontStr": "Arial", "fontSize": 40})
+    
+
+    def updateQA(self, newQuestion: str, newAnswers: list[str]) -> None:
+        """Updates the displayed question and answers"""
+
+        button_texts = ['A_text', 'B_text', 'C_text', 'D_text']
+        self.entities['question'].reRenderText(newQuestion) # type: ignore
+
+        # Just in case there is ever less than 4 answer choices given
+        for i in range(len(newAnswers)):
+            self.entities[button_texts[i]].reRenderText(newAnswers[i]) # type: ignore
+
+        
+    def addAnswerChoiceText(self):
+        self.addEntity("A_text", "text", {"pos": [100,423], "text": self.A_button_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("B_text", "text", {"pos": [100,523], "text": self.B_button_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("C_text", "text", {"pos": [100,623], "text": self.C_button_text, "fontStr": "Arial", "fontSize": 40})
+        self.addEntity("D_text", "text", {"pos": [100,723], "text": self.D_button_text, "fontStr": "Arial", "fontSize": 40})
+
+
+        
