@@ -2,11 +2,15 @@
 #keep track of questions done well on and not so well on
 #pinpoint strengths and weaknesses
 #increase diffifculty of questions
+import json
+import random
 
 import openai
-import os 
+import os
 from openai import OpenAI
 client = OpenAI(api_key = os.getenv("API_KEY"))
+
+
 
 def generateq(subject, challenge):
     '''
@@ -19,7 +23,11 @@ def generateq(subject, challenge):
     else:
         level = 'difficult'
     prompt = (f'Generate a {level} problem about {subject}. '
-              f'The question should be clear and concise, as well as being suitable for elementary school child. Return the question and answer in a JSON format. With the key for question being "question" and the key for the answers being "answers". Return the four answer choices in a python list format inside the JSON.')
+              f'The question should be clear and concise. '
+              f'Return the question and answer in a JSON format. With the key for question being "question" and the key for the answers being "answers". '
+              f'Return the four answer choices in a python list format inside the JSON.'
+              f'Return the correct answer in JSON format. Let the key be "correct" and return in list format inside the JSON.')
+
     try:
         response = client.chat.completions.create(
             model = 'gpt-4',
@@ -33,6 +41,14 @@ def generateq(subject, challenge):
     except Exception as e:
         return f'error generating question {e}'
 
-sub = 'physics'
-challenge = 1
-print(generateq(sub, challenge))
+
+'''def play_game():
+    lst = ['world history', 'math', 'physics', 'art', 'chemistry', 'biology', 'english']
+    sub = random.choice(lst)
+    lvl = 1
+    loss = 0
+    while loss < 10:
+        x = generateq(sub, lvl)
+        qna = json.loads(x)
+        print(qna["question"])
+        if qna[]'''
