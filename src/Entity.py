@@ -58,6 +58,7 @@ class TextEntity(Entity):
 
     def reRenderText(self, newStr:str):
         self.textSurface = self.font.render(newStr, 0, (0,0,0))
+        self.text = newStr
 
     def render(self, display: pygame.Surface):
         display.blit(self.textSurface, self.pos)
