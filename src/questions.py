@@ -30,7 +30,7 @@ def generateq(subject, challenge):
 
     try:
         response = client.chat.completions.create(
-            model = 'gpt-4',
+            model = 'gpt-4o-mini',
             messages = [
                 {"role": "system", "content": "You are a helpful quiz question generator."},
                 {"role": "user", "content": prompt},
@@ -41,14 +41,3 @@ def generateq(subject, challenge):
     except Exception as e:
         return f'error generating question {e}'
 
-
-'''def play_game():
-    lst = ['world history', 'math', 'physics', 'art', 'chemistry', 'biology', 'english']
-    sub = random.choice(lst)
-    lvl = 1
-    loss = 0
-    while loss < 10:
-        x = generateq(sub, lvl)
-        qna = json.loads(x)
-        print(qna["question"])
-        if qna[]'''
