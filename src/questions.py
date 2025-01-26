@@ -63,7 +63,6 @@ def playingGame(Window):
     '''
     keep track of wrong guesses and current right answer
     '''
-    wrong = 0
     lvl = 1
     correct = ''
     if Window.entities['question'].text == '':
@@ -73,7 +72,7 @@ def playingGame(Window):
         if Window.button_clicked == correct:
             lvl += 1
         else:
-            wrong += 1
+            lvl -= 1
         correct = newQuestion(Window, lvl)
         Window.button_clicked = 'none'
 
